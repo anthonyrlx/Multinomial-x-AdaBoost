@@ -9,6 +9,7 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score
 
 
 
@@ -68,14 +69,9 @@ def fit_and_predict(nome, modelo, treino_dados, treino_marcacoes):
 def teste_real(modelo, validacao_dados, validacao_marcacoes):
     modelo.fit(validacao_dados, validacao_marcacoes)
     resultado = modelo.predict(validacao_dados)
-    acertos = resultado == validacao_marcacoes
-
-    total_de_acertos = sum(acertos)
-    total_de_elementos = len(validacao_marcacoes)
-
-    taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
-
-    print("Taxa de acerto do vencedor no mundo real: {0} %".format(taxa_de_acerto))
+    
+    taxa_de_acerto = accuracy_score(resultado, validacao_marcacoes)
+    print("Taxa de acerto do vencedor no mundo real: {0} ".format(taxa_de_acerto))
     
 
 start_process()
